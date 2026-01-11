@@ -2,11 +2,12 @@ import { Component, inject, signal, input, OnInit } from '@angular/core';
 import { MovieService } from '../../core/services/movie';
 import { Movie } from '../../core/models/movie.model';
 import { WatchlistService } from '../../core/services/watchlist';
+import { JsonPipe } from '@angular/common';
 
 @Component({
   selector: 'app-movie-details',
   standalone: true,
-  imports: [],
+  imports: [JsonPipe],
   templateUrl: './movie-details.html',
   styleUrl: './movie-details.css',
 })
@@ -47,7 +48,7 @@ export class MovieDetails implements OnInit {
   }
 
   get rating(): string {
-    return this.movie()?.voteAverage?.toFixed(1) ?? 'N/A';
+    return this.movie()?.rating?.toFixed(1) ?? 'N/A';
   }
 
   get isInWatchlist(): boolean {

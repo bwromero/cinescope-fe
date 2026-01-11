@@ -2,10 +2,12 @@ export interface Movie {
     id: number;
     title: string;
     overview: string;
+    synopsis: string;
     posterPath: string;
     backdropPath: string;
     releaseDate: string;
     voteAverage: number;
+    rating: number;
     voteCount: number;
     popularity: number;
     genreIds: number[];
