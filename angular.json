@@ -27,8 +27,6 @@
           },
           "configurations": {
             "production": {
-              "server": "src/main.server.ts",
-              "outputMode": "server",
               "budgets": [
                 {
                   "type": "initial",
