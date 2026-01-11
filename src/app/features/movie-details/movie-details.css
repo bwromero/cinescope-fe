@@ -79,3 +79,11 @@
     padding-top: 200px;
     color: #888;
   }
+
+  .btn-watchlist.in-watchlist {
+    background: #2ecc71;
+  }
+  
+  .btn-watchlist.in-watchlist:hover {
+    background: #27ae60;
+  }

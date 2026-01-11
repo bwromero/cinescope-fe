@@ -1,18 +1,26 @@
 @if (loading()) {
-    <div class="loading">Loading...</div>
-  } @else if (movie(); as m) {
-    <div class="details-page">
-      <div class="backdrop" [style.background-image]="'url(' + backdropUrl + ')'"></div>
-      
-      <div class="content">
-        <img [src]="posterUrl" [alt]="m.title" class="poster" />
-        
-        <div class="info">
-          <h1>{{ m.title }} <span class="year">({{ year }})</span></h1>
-          <div class="rating">⭐ {{ rating }}</div>
-          <p class="overview">{{ m.overview }}</p>
-          <button class="btn-watchlist">+ Add to Watchlist</button>
-        </div>
-      </div>
+<div class="loading">Loading...</div>
+} @else if (movie(); as m) {
+<div class="details-page">
+  <div class="backdrop" [style.background-image]="'url(' + backdropUrl + ')'"></div>
+
+  <div class="content">
+    <img [src]="posterUrl" [alt]="m.title" class="poster" />
+
+    <div class="info">
+      <h1>
+        {{ m.title }} <span class="year">({{ year }})</span>
+      </h1>
+      <div class="rating">⭐ {{ rating }}</div>
+      <p class="overview">{{ m.overview }}</p>
+      <button
+        class="btn-watchlist"
+        [class.in-watchlist]="isInWatchlist"
+        (click)="toggleWatchlist()"
+      >
+        {{ isInWatchlist ? '✓ In Watchlist' : '+ Add to Watchlist' }}
+      </button>
     </div>
-  }
+  </div>
+</div>
+}

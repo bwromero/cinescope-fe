@@ -4,6 +4,10 @@
     <nav class="nav">
       <a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Home</a>
       <a routerLink="/search" routerLinkActive="active">Search</a>
-      <a routerLink="/watchlist" routerLinkActive="active">Watchlist</a>
-    </nav>
+      <a routerLink="/watchlist" routerLinkActive="active">
+        Watchlist
+        @if (watchlistService.count() > 0) {
+          <span class="badge">{{ watchlistService.count() }}</span>
+        }
+      </a>    </nav>
   </header>

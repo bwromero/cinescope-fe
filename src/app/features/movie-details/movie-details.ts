@@ -1,6 +1,7 @@
 import { Component, inject, signal, input, OnInit } from '@angular/core';
 import { MovieService } from '../../core/services/movie';
 import { Movie } from '../../core/models/movie.model';
+import { WatchlistService } from '../../core/services/watchlist';
 
 @Component({
   selector: 'app-movie-details',
@@ -11,9 +12,10 @@ import { Movie } from '../../core/models/movie.model';
 })
 export class MovieDetails implements OnInit {
   id = input.required<string>();
-  
+
   private movieService = inject(MovieService);
-  
+  private watchlistService = inject(WatchlistService);
+
   movie = signal<Movie | null>(null);
   loading = signal(true);
 
@@ -46,5 +48,17 @@ export class MovieDetails implements OnInit {
 
   get rating(): string {
     return this.movie()?.voteAverage?.toFixed(1) ?? 'N/A';
+  }
+
+  get isInWatchlist(): boolean {
+    const movie = this.movie();
+    return movie ? this.watchlistService.isInWatchlist(movie.id) : false;
+  }
+
+  toggleWatchlist(): void {
+    const movie = this.movie();
+    if (movie) {
+      this.watchlistService.toggleWatchlist(movie);
+    }
   }
 }

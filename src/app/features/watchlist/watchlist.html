@@ -1,0 +1,16 @@
+<div class="watchlist-page">
+    <h1>My Watchlist</h1>
+    
+    @if (watchlistService.watchlist().length > 0) {
+      <div class="movie-grid">
+        @for (movie of watchlistService.watchlist(); track movie.id) {
+          <app-movie-card [movie]="movie" />
+        }
+      </div>
+    } @else {
+      <div class="empty-state">
+        <p>Your watchlist is empty</p>
+        <p class="hint">Browse movies and click "Add to Watchlist" to save them here</p>
+      </div>
+    }
+  </div>
