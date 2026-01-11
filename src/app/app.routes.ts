@@ -9,10 +9,10 @@ export const routes: Routes = [
         path: 'movie/:id',
         loadComponent: () => import('./features/movie-details/movie-details').then(m => m.MovieDetails)
       },
-    //   {
-    //     path: 'search',
-    //     loadComponent: () => import('./features/search/search.component').then(m => m.SearchComponent)
-    //   },
+      {
+        path: 'search',
+        loadComponent: () => import('./features/search/search').then(m => m.Search)
+      },
       {
         path: '**',
         redirectTo: ''

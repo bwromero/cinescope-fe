@@ -19,8 +19,8 @@ export class MovieService {
     return this.http.get<PageResponse<Movie>>(`${this.apiUrl}/movies/popular?page=${page}`);
   }
 
-  searchMovies(query: string, page = 1): Observable<PageResponse<Movie>> {
-    return this.http.get<PageResponse<Movie>>(`${this.apiUrl}/movies/search?query=${query}&page=${page}`);
+  searchMovies(query: string, page = 1): Observable<Movie[]> {
+    return this.http.get<Movie[]>(`${this.apiUrl}/movies/search?query=${query}&page=${page}`);
   }
 
   getMovieDetails(id: number): Observable<Movie> {
