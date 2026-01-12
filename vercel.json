@@ -2,11 +2,6 @@
     "rewrites": [
       { "source": "/(.*)", "destination": "/index.html" }
     ],
-    "git": {
-      "deploymentEnabled": {
-        "master": true
-      }
-    },
     "ignoreCommand": "[ \"$VERCEL_GIT_COMMIT_REF\" != \"master\" ]",
     "framework": "angular",
     "buildCommand": "ng build",
