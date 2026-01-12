@@ -4,11 +4,12 @@ import { MovieService } from '../../core/services/movie';
 import { WatchlistService } from '../../core/services/watchlist';
 import { Movie } from '../../core/models/movie.model';
 import { TmdbImagePipe } from '../../shared/pipes/tmdb-image-pipe';
+import { ImageLoaderDirective } from '../../core/directives/image-loader-directive';
 
 @Component({
   selector: 'app-movie-details',
   standalone: true,
-  imports: [TmdbImagePipe],
+  imports: [TmdbImagePipe, ImageLoaderDirective],
   templateUrl: './movie-details.html',
   styleUrl: './movie-details.css',
 })

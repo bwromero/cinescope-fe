@@ -160,6 +160,17 @@
   transition: opacity 0.3s ease;
 }
 
-.poster.loaded {
+.poster.img-loaded {
   opacity: 1;
+}
+
+.poster.img-loading {
+  background: linear-gradient(90deg, #1a1a2e 25%, #2a2a4e 50%, #1a1a2e 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+}
+
+@keyframes shimmer {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
 }

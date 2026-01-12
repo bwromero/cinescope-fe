@@ -12,7 +12,8 @@
         [src]="m.posterPath | tmdbImage:'w500'" 
         [alt]="m.title" 
         class="poster" 
-        (load)="onImageLoad($event)"
+        appImageLoader
+        [fallback]="'assets/movie-placeholder.png'"
       />
 
       <div class="info">
