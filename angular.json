@@ -27,6 +27,10 @@
           },
           "configurations": {
             "production": {
+              "outputMode": "server",
+              "ssr": {
+                "entry": "src/server.ts"
+              },
               "fileReplacements": [
                 {
                   "replace": "src/environments/enviroment.ts",
@@ -50,7 +54,9 @@
             "development": {
               "optimization": false,
               "extractLicenses": false,
-              "sourceMap": true
+              "sourceMap": true,
+              "ssr": false
+
             }
           },
           "defaultConfiguration": "production"
