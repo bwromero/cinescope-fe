@@ -40,11 +40,7 @@ export class MovieDetails {
     const m = this.movie();
     if (m) this.watchlistService.toggleWatchlist(m);
   }
-
-  onImageLoad(event: Event): void {
-    (event.target as HTMLElement).classList.add('loaded');
-  }
-
+  
   goBack(): void {
     this.router.navigate(['/']);
   }
