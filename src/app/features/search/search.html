@@ -15,7 +15,7 @@
     } @else if (results().length > 0) {
       <div class="movie-grid">
         @for (movie of results(); track movie.id) {
-          <app-movie-card [movie]="movie" />
+          <app-movie-card [movie]="movie" (cardClick)="onMovieClick($event)"  />
         }
       </div>
     } @else if (searched() && results().length === 0) {

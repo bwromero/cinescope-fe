@@ -6,6 +6,7 @@ import { MovieCard } from '../../shared/components/movie-card/movie-card';
 import { debounceTime, distinctUntilChanged, switchMap, filter, tap } from 'rxjs/operators';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { of } from 'rxjs';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-search',
@@ -17,6 +18,7 @@ import { of } from 'rxjs';
 export class Search implements OnInit {
   private movieService = inject(MovieService);
   private destroyRef = inject(DestroyRef);
+  private router = inject(Router);
 
   searchControl = new FormControl('');
   results = signal<Movie[]>([]);
@@ -46,5 +48,9 @@ export class Search implements OnInit {
         this.loading.set(false);
       }
     });
+  }
+
+  onMovieClick(movie: Movie): void {
+    this.router.navigate(['/movie', movie.id]);
   }
 }
