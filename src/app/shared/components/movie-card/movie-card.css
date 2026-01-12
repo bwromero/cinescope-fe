@@ -6,6 +6,7 @@
     overflow: hidden;
     background: var(--card-bg, #1a1a2e);
     transition: transform 0.2s, box-shadow 0.2s;
+    cursor: pointer;
   }
   
   .movie-card:hover {
