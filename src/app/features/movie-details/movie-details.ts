@@ -1,64 +1,70 @@
-import { Component, inject, signal, input, OnInit } from '@angular/core';
+import { Component, inject, input, signal, OnInit, computed } from '@angular/core';
+import { Router } from '@angular/router';
 import { MovieService } from '../../core/services/movie';
-import { Movie } from '../../core/models/movie.model';
 import { WatchlistService } from '../../core/services/watchlist';
+import { Movie } from '../../core/models/movie.model';
+import { TmdbImagePipe } from '../../shared/pipes/tmdb-image-pipe';
 
 @Component({
   selector: 'app-movie-details',
   standalone: true,
-  imports: [],
+  imports: [TmdbImagePipe],
   templateUrl: './movie-details.html',
   styleUrl: './movie-details.css',
 })
 export class MovieDetails implements OnInit {
-  id = input.required<string>();
-
   private movieService = inject(MovieService);
   private watchlistService = inject(WatchlistService);
+  private router = inject(Router);
 
-  movie = signal<Movie | null>(null);
-  loading = signal(true);
+  // Route param
+  id = input.required<string>();
 
-  ngOnInit() {
+  // Local state
+  protected movie = signal<Movie | null>(null);
+  protected loading = signal(true);
+  protected error = signal<string | null>(null);
+
+  // Computed values
+  protected year = computed(() => 
+    this.movie()?.releaseDate?.split('-')[0] ?? ''
+  );
+  
+  protected rating = computed(() => 
+    this.movie()?.rating?.toFixed(1) ?? 'N/A'
+  );
+
+  protected isInWatchlist = computed(() => {
+    const m = this.movie();
+    return m ? this.watchlistService.isInWatchlist(m.id) : false;
+  });
+
+  ngOnInit(): void {
+    this.loadMovie();
+  }
+
+  private loadMovie(): void {
+    this.loading.set(true);
+    this.error.set(null);
+
     this.movieService.getMovieDetails(+this.id()).subscribe({
       next: (movie) => {
         this.movie.set(movie);
         this.loading.set(false);
       },
-      error: (err) => {
-        console.error('Failed to load movie:', err);
+      error: () => {
+        this.error.set('Failed to load movie details');
         this.loading.set(false);
       }
     });
   }
 
-  get backdropUrl(): string {
-    const path = this.movie()?.backdropPath;
-    return path ? this.movieService.getImageUrl(path, 'w1280') : '';
-  }
-
-  get posterUrl(): string {
-    const path = this.movie()?.posterPath;
-    return path ? this.movieService.getImageUrl(path, 'w500') : '';
-  }
-
-  get year(): string {
-    return this.movie()?.releaseDate?.split('-')[0] ?? '';
-  }
-
-  get rating(): string {
-    return this.movie()?.rating?.toFixed(1) ?? 'N/A';
-  }
-
-  get isInWatchlist(): boolean {
-    const movie = this.movie();
-    return movie ? this.watchlistService.isInWatchlist(movie.id) : false;
-  }
-
   toggleWatchlist(): void {
-    const movie = this.movie();
-    if (movie) {
-      this.watchlistService.toggleWatchlist(movie);
-    }
+    const m = this.movie();
+    if (m) this.watchlistService.toggleWatchlist(m);
+  }
+
+  goBack(): void {
+    this.router.navigate(['/']);
   }
 }

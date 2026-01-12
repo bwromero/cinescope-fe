@@ -58,7 +58,6 @@
   }
   
   .btn-watchlist {
-    margin-top: 28px;
     padding: 14px 28px;
     font-size: 1rem;
     font-weight: 600;
@@ -87,3 +86,71 @@
   .btn-watchlist.in-watchlist:hover {
     background: #27ae60;
   }
+
+  /* Actions container */
+.actions {
+  display: flex;
+  gap: 16px;
+  margin-top: 28px;
+  flex-wrap: wrap;
+}
+
+/* Back button */
+.btn-back {
+  padding: 14px 24px;
+  font-size: 1rem;
+  font-weight: 600;
+  border: 2px solid #444;
+  border-radius: 8px;
+  background: transparent;
+  color: #ccc;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.btn-back:hover {
+  border-color: #888;
+  color: white;
+  background: rgba(255, 255, 255, 0.05);
+}
+
+/* Error state styling */
+.error {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 50vh;
+  gap: 20px;
+  color: #e94560;
+}
+
+.error p {
+  font-size: 1.2rem;
+}
+
+.error button {
+  padding: 12px 24px;
+  font-size: 1rem;
+  border: 2px solid #e94560;
+  border-radius: 8px;
+  background: transparent;
+  color: #e94560;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.error button:hover {
+  background: #e94560;
+  color: white;
+}
+
+/* Not found styling */
+.not-found {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 50vh;
+  font-size: 1.2rem;
+  color: #888;
+}
