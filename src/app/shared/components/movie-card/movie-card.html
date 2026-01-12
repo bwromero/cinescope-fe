@@ -1,10 +1,18 @@
-<a [routerLink]="['/movie', movie().id]" class="movie-card">
-    <div class="poster-wrapper">
-      <img [src]="posterUrl" [alt]="movie().title" class="poster" loading="lazy" />
-      <div class="rating-badge">⭐ {{ rating }}</div>
-    </div>
-    <div class="info">
-      <h3 class="title">{{ movie().title }}</h3>
-      <span class="year">{{ year }}</span>
-    </div>
-  </a>
+<!-- movie-card.html -->
+<article class="movie-card" (click)="onClick()">
+  <div class="poster-wrapper">
+    <img 
+      [src]="movie().posterPath | tmdbImage:'w342'" 
+      [alt]="movie().title" 
+      class="poster" 
+      loading="lazy" 
+    />
+    @if (showRating()) {
+      <div class="rating-badge">⭐ {{ rating() }}</div>
+    }
+  </div>
+  <div class="info">
+    <h3 class="title">{{ movie().title }}</h3>
+    <span class="year">{{ year() }}</span>
+  </div>
+</article>
