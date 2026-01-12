@@ -3,7 +3,7 @@ import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { MovieService } from '../../core/services/movie';
 import { Movie } from '../../core/models/movie.model';
 import { MovieCard } from '../../shared/components/movie-card/movie-card';
-import { debounceTime, distinctUntilChanged, switchMap, filter, tap } from 'rxjs/operators';
+import { debounceTime, distinctUntilChanged, switchMap, filter, tap, catchError } from 'rxjs/operators';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { of } from 'rxjs';
 import { Router } from '@angular/router';
@@ -15,38 +15,36 @@ import { Router } from '@angular/router';
   templateUrl: './search.html',
   styleUrl: './search.css',
 })
-export class Search implements OnInit {
+export class Search {
   private movieService = inject(MovieService);
   private destroyRef = inject(DestroyRef);
   private router = inject(Router);
 
-  searchControl = new FormControl('');
-  results = signal<Movie[]>([]);
-  loading = signal(false);
-  searched = signal(false);
+  protected searchControl = new FormControl('');
+  protected results = this.movieService.searchResults;
+  protected loading = this.movieService.searchLoading;
+  protected error = this.movieService.searchError;
+  protected searched = this.movieService.hasSearched;
 
-  ngOnInit() {
+
+  constructor() {
+    this.setupSearch();
+  }
+
+  private setupSearch() {
+    // Restore previous query if exists
+    const savedQuery = this.movieService.searchQuery();
+    if (savedQuery) {
+      this.searchControl.setValue(savedQuery, { emitEvent: false });
+    }
+
+    // Debounce input and trigger search
     this.searchControl.valueChanges.pipe(
-      debounceTime(400),                        // Wait 400ms after typing stops
-      distinctUntilChanged(),                   // Only if value changed
-      tap(() => this.loading.set(true)),
-      switchMap(query => {
-        if (!query || query.length < 2) {
-          this.loading.set(false);
-          return of([] as Movie[]);
-        }
-        return this.movieService.searchMovies(query);
-      }),
-      takeUntilDestroyed(this.destroyRef)       // Auto-unsubscribe
-    ).subscribe({
-      next: (response) => {
-        this.results.set(response);
-        this.loading.set(false);
-        this.searched.set(true);
-      },
-      error: () => {
-        this.loading.set(false);
-      }
+      debounceTime(400),
+      distinctUntilChanged(),
+      takeUntilDestroyed(this.destroyRef)
+    ).subscribe(query => {
+      this.movieService.search(query ?? '');
     });
   }
 

@@ -19,6 +19,19 @@ export class MovieService {
   readonly trendingLoading = this._trendingLoading.asReadonly();
   readonly trendingError = this._trendingError.asReadonly();
 
+  private _searchQuery = signal('');
+  private _searchResults = signal<Movie[]>([]);
+  private _searchLoading = signal(false);
+  private _searchError = signal<string | null>(null);
+  private _hasSearched = signal(false);
+
+  readonly searchQuery = this._searchQuery.asReadonly();
+  readonly searchResults = this._searchResults.asReadonly();
+  readonly searchLoading = this._searchLoading.asReadonly();
+  readonly searchError = this._searchError.asReadonly();
+  readonly hasSearched = this._hasSearched.asReadonly();
+
+
   loadTrendingMovies(): void {
     if (this._trendingMovies().length > 0) return;
 
@@ -41,8 +54,37 @@ export class MovieService {
     return this.http.get<PageResponse<Movie>>(`${this.apiUrl}/movies/popular?page=${page}`);
   }
 
-  searchMovies(query: string, page = 1): Observable<Movie[]> {
-    return this.http.get<Movie[]>(`${this.apiUrl}/movies/search?query=${query}&page=${page}`);
+  search(query: string): void {
+    const trimmed = query.trim();
+    this._searchQuery.set(trimmed);
+    this._searchError.set(null);
+
+    // Clear results if query too short
+    if (trimmed.length < 2) {
+      this._searchResults.set([]);
+      this._searchLoading.set(false);
+      return;
+    }
+
+    this._searchLoading.set(true);
+
+    this.http.get<Movie[]>(`${this.apiUrl}/movies/search?query=${trimmed}`).pipe(
+      catchError(() => {
+        this._searchError.set('Failed to search movies');
+        return of([]);
+      })
+    ).subscribe(movies => {
+      this._searchResults.set(movies);
+      this._searchLoading.set(false);
+      this._hasSearched.set(true);
+    });
+  }
+
+  clearSearch(): void {
+    this._searchQuery.set('');
+    this._searchResults.set([]);
+    this._hasSearched.set(false);
+    this._searchError.set(null);
   }
 
   getMovieDetails(id: number): Observable<Movie> {
