@@ -2,7 +2,8 @@ import { Pipe, PipeTransform } from '@angular/core';
 import { environment } from '../../../environments/enviroment';
 
 @Pipe({
-  name: 'tmdbImage'
+  name: 'tmdbImage',
+  standalone: true
 })
 export class TmdbImagePipe implements PipeTransform {
 
