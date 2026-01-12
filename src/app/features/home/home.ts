@@ -1,7 +1,8 @@
-import { Component, inject, signal } from '@angular/core';
-import { Movie } from '../../core/models/movie.model';
+import { Component, computed, inject, signal } from '@angular/core';
 import { MovieService } from '../../core/services/movie';
 import { MovieCard } from '../../shared/components/movie-card/movie-card';
+import { toSignal } from '@angular/core/rxjs-interop';
+import { tap } from 'rxjs';
 
 @Component({
   selector: 'app-home',
@@ -12,20 +13,14 @@ import { MovieCard } from '../../shared/components/movie-card/movie-card';
 })
 export class Home {
   private movieService = inject(MovieService);
-
-  trendingMovies = signal<Movie[]>([]);
   loading = signal(true);
 
-  ngOnInit() {
-    this.movieService.getTrendingMovies().subscribe({
-      next: (movies) => {
-        this.trendingMovies.set(movies);
-        this.loading.set(false);
-      },
-      error: (err) => {
-        console.error('Failed to load movies:', err);
-        this.loading.set(false);
-      }
-    });
-  }
+  private moviesResource = toSignal(
+    this.movieService.getTrendingMovies().pipe(
+      tap(() => this.loading.set(false))
+    ),
+    { initialValue: [] });
+
+  trendingMovies = computed(() => this.moviesResource());
+
 }

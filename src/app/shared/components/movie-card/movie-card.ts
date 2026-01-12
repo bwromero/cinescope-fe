@@ -25,6 +25,6 @@ export class MovieCard {
   }
 
   get rating(): string {
-    return this.movie().voteAverage?.toFixed(1) ?? 'N/A';
+    return this.movie().rating?.toFixed(1) ?? 'N/A';
   }
 }

@@ -2,12 +2,11 @@ import { Component, inject, signal, input, OnInit } from '@angular/core';
 import { MovieService } from '../../core/services/movie';
 import { Movie } from '../../core/models/movie.model';
 import { WatchlistService } from '../../core/services/watchlist';
-import { JsonPipe } from '@angular/common';
 
 @Component({
   selector: 'app-movie-details',
   standalone: true,
-  imports: [JsonPipe],
+  imports: [],
   templateUrl: './movie-details.html',
   styleUrl: './movie-details.css',
 })
