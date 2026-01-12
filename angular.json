@@ -28,10 +28,6 @@
           },
           "configurations": {
             "production": {
-              "outputMode": "server",
-              "ssr": {
-                "entry": "src/server.ts"
-              },
               "fileReplacements": [
                 {
                   "replace": "src/environments/enviroment.ts",
