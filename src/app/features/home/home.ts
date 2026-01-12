@@ -24,7 +24,6 @@ export class Home {
     this.movieService.loadTrendingMovies();
   }
 
-  // Handle child component events
   onMovieClick(movie: Movie): void {
     this.router.navigate(['/movie', movie.id]);
   }

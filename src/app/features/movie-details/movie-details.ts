@@ -1,6 +1,5 @@
 import { Component, inject, input, signal, OnInit, computed } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
-import { MovieService } from '../../core/services/movie';
+import { Router } from '@angular/router';
 import { WatchlistService } from '../../core/services/watchlist';
 import { Movie } from '../../core/models/movie.model';
 import { TmdbImagePipe } from '../../shared/pipes/tmdb-image-pipe';
@@ -34,7 +33,6 @@ export class MovieDetails {
     const m = this.movie();
     return m ? this.watchlistService.isInWatchlist(m.id) : false;
   });
-
 
   toggleWatchlist(): void {
     const m = this.movie();

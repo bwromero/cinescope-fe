@@ -1,10 +1,12 @@
 @if (movie(); as m) {
   <div class="details-page">
     <!-- Backdrop using pipe -->
-    <div 
-      class="backdrop" 
-      [style.background-image]="'url(' + (m.posterPath | tmdbImage:'w1280') + ')'"
-    ></div>
+    <img 
+      appImageLoader
+      [src]="m.posterPath | tmdbImage:'w1280'" 
+      alt=""
+      class="backdrop-img"
+    />
 
     <div class="content">
       <!-- Poster using pipe -->
