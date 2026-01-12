@@ -3,12 +3,13 @@ import { WatchlistService } from '../../core/services/watchlist';
 import { Movie } from '../../core/models/movie.model';
 import { TmdbImagePipe } from '../../shared/pipes/tmdb-image-pipe';
 import { ImageLoaderDirective } from '../../core/directives/image-loader-directive';
-import { Location } from '@angular/common';
+import { DecimalPipe, Location } from '@angular/common';
+import { FormatRuntimePipe } from '../../shared/pipes/format-runtime-pipe';
 
 @Component({
   selector: 'app-movie-details',
   standalone: true,
-  imports: [TmdbImagePipe, ImageLoaderDirective],
+  imports: [TmdbImagePipe, ImageLoaderDirective, DecimalPipe, FormatRuntimePipe],
   templateUrl: './movie-details.html',
   styleUrl: './movie-details.css',
 })

@@ -1,46 +1,53 @@
 @if (movie(); as m) {
-  <div class="details-page">
-    <!-- Backdrop using pipe -->
-    <img 
+<div class="details-page">
+  <!-- Backdrop using pipe -->
+  @if (m.backdropPath) {
+  <img appImageLoader [src]="m.backdropPath | tmdbImage : 'w1280'" alt="" class="backdrop-img" />
+  }
+
+  <div class="content">
+    <!-- Poster using pipe -->
+    <img
       appImageLoader
-      [src]="m.posterPath | tmdbImage:'w1280'" 
-      alt=""
-      class="backdrop-img"
+      [src]="m.posterPath | tmdbImage : 'w500'"
+      [alt]="m.title"
+      class="poster"
+      [fallback]="'assets/movie-placeholder.png'"
     />
 
-    <div class="content">
-      <!-- Poster using pipe -->
-      <img 
-        appImageLoader
-        [src]="m.posterPath | tmdbImage:'w500'" 
-        [alt]="m.title" 
-        class="poster" 
-        [fallback]="'assets/movie-placeholder.png'"
-      />
+    <div class="info">
+      <h1>
+        {{ m.title }} <span class="year">({{ year() }})</span>
+      </h1>
+      @if (m.tagline) {
+      <p class="tagline">"{{ m.tagline }}"</p>
+      }
+      <div class="meta">
+        <span class="rating">⭐ {{ rating() }}</span>
+        @if (m.voteCount) {
+        <span class="votes">({{ m.voteCount | number }} votes)</span>
+        } @if (m.runtime) {
+          <span class="runtime">🕐 {{ m.runtime | formatRuntime }}</span>        } @if (m.status && m.status !== 'Released') {
+        <span class="status">📍 {{ m.status }}</span>
+        }
+      </div>
 
-      <div class="info">
-        <h1>{{ m.title }} <span class="year">({{ year() }})</span></h1>
-        
-        <div class="rating">⭐ {{ rating() }}</div>
-        
-        <p class="overview">{{ m.synopsis }}</p>
-        
-        <div class="actions">
-          <button
-            class="btn-watchlist"
-            [class.in-watchlist]="isInWatchlist()"
-            (click)="toggleWatchlist()"
-          >
-            {{ isInWatchlist() ? '✓ In Watchlist' : '+ Add to Watchlist' }}
-          </button>
-          
-          <button class="btn-back" (click)="goBack()">
-            ← Back
-          </button>
-        </div>
+      <p class="overview">{{ m.synopsis }}</p>
+
+      <div class="actions">
+        <button
+          class="btn-watchlist"
+          [class.in-watchlist]="isInWatchlist()"
+          (click)="toggleWatchlist()"
+        >
+          {{ isInWatchlist() ? '✓ In Watchlist' : '+ Add to Watchlist' }}
+        </button>
+
+        <button class="btn-back" (click)="goBack()">← Back</button>
       </div>
     </div>
   </div>
+</div>
 } @else {
-  <div class="not-found">Movie not found</div>
+<div class="not-found">Movie not found</div>
 }
