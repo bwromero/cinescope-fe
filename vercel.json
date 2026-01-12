@@ -7,6 +7,7 @@
         "master": true
       }
     },
+    "ignoreCommand": "[ \"$VERCEL_GIT_COMMIT_REF\" != \"master\" ]",
     "framework": "angular",
     "buildCommand": "ng build",
     "outputDirectory": "dist/CineScope"
