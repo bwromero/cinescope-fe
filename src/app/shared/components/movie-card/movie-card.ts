@@ -1,7 +1,5 @@
 import { Component, computed, inject, input, output } from '@angular/core';
-import { RouterLink } from '@angular/router';
 import { Movie } from '../../../core/models/movie.model';
-import { MovieService } from '../../../core/services/movie';
 import { TmdbImagePipe } from '../../pipes/tmdb-image-pipe';
 
 @Component({

@@ -1,9 +1,9 @@
-import { Component, inject, input, signal, OnInit, computed } from '@angular/core';
-import { Router } from '@angular/router';
+import { Component, inject, input, computed } from '@angular/core';
 import { WatchlistService } from '../../core/services/watchlist';
 import { Movie } from '../../core/models/movie.model';
 import { TmdbImagePipe } from '../../shared/pipes/tmdb-image-pipe';
 import { ImageLoaderDirective } from '../../core/directives/image-loader-directive';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-movie-details',
@@ -14,7 +14,7 @@ import { ImageLoaderDirective } from '../../core/directives/image-loader-directi
 })
 export class MovieDetails {
   private watchlistService = inject(WatchlistService);
-  private router = inject(Router);
+  private location = inject(Location);  // 👈 Use Location instead of Router
 
   // Route param
   protected id = input.required<string>();
@@ -40,6 +40,6 @@ export class MovieDetails {
   }
   
   goBack(): void {
-    this.router.navigate(['/']);
+    this.location.back()
   }
 }
