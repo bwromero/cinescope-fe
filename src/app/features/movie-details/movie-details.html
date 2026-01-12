@@ -1,11 +1,4 @@
-@if (loading()) {
-  <div class="loading">Loading...</div>
-} @else if (error()) {
-  <div class="error">
-    <p>{{ error() }}</p>
-    <button (click)="goBack()">← Go Back</button>
-  </div>
-} @else if (movie(); as m) {
+@if (movie(); as m) {
   <div class="details-page">
     <!-- Backdrop using pipe -->
     <div 
@@ -19,6 +12,7 @@
         [src]="m.posterPath | tmdbImage:'w500'" 
         [alt]="m.title" 
         class="poster" 
+        (load)="onImageLoad($event)"
       />
 
       <div class="info">

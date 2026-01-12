@@ -154,3 +154,12 @@
   font-size: 1.2rem;
   color: #888;
 }
+
+.poster {
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.poster.loaded {
+  opacity: 1;
+}
