@@ -1,5 +1,13 @@
 {
     "rewrites": [
       { "source": "/(.*)", "destination": "/index.html" }
-    ]
+    ],
+    "git": {
+      "deploymentEnabled": {
+        "master": true
+      }
+    },
+    "framework": "angular",
+    "buildCommand": "ng build",
+    "outputDirectory": "dist/CineScope"
   }
