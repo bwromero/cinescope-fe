@@ -15,13 +15,41 @@ export class Home {
   private movieService = inject(MovieService);
   private router = inject(Router);
 
-  // Facade - re-expose service signals
-  protected readonly movies = this.movieService.trendingMovies;
-  protected readonly loading = this.movieService.trendingLoading;
-  protected readonly error = this.movieService.trendingError;
+  // Trending
+  protected readonly trendingMovies = this.movieService.trendingMovies;
+  protected readonly trendingLoading = this.movieService.trendingLoading;
+  protected readonly trendingError = this.movieService.trendingError;
+
+  // Now Playing
+  protected readonly nowPlayingMovies = this.movieService.nowPlayingMovies;
+  protected readonly nowPlayingLoading = this.movieService.nowPlayingLoading;
+  protected readonly nowPlayingError = this.movieService.nowPlayingError;
+
+  // Upcoming
+  protected readonly upcomingMovies = this.movieService.upcomingMovies;
+  protected readonly upcomingLoading = this.movieService.upcomingLoading;
+  protected readonly upcomingError = this.movieService.upcomingError;
+
+  // Top Rated
+  protected readonly topRatedMovies = this.movieService.topRatedMovies;
+  protected readonly topRatedLoading = this.movieService.topRatedLoading;
+  protected readonly topRatedError = this.movieService.topRatedError;
+
+  // Popular
+  protected readonly popularMovies = this.movieService.popularMovies;
+  protected readonly popularLoading = this.movieService.popularLoading;
+  protected readonly popularError = this.movieService.popularError;
 
   constructor() {
+    this.loadMovies();
+  }
+
+  private loadMovies() {
     this.movieService.loadTrendingMovies();
+    this.movieService.loadNowPlayingMovies();
+    this.movieService.loadUpcomingMovies();
+    this.movieService.loadTopRatedMovies();
+    this.movieService.loadPopularMovies();
   }
 
   onMovieClick(movie: Movie): void {

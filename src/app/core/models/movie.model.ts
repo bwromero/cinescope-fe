@@ -1,3 +1,4 @@
+import { signal, WritableSignal } from "@angular/core";
 import { Video } from "./video.model";
 
 export interface Movie {
@@ -18,15 +19,15 @@ export interface Movie {
   genreIds?: number[];
   videos?: { results: Video[] };
 }
-  
-  export interface PageResponse<T> {
-    page: number;
-    totalPages: number;
-    totalResults: number;
-    results: T[];
-  }
-  
-  export interface Genre {
-    id: number;
-    name: string;
-  }
+export interface PageResponse<T> {
+  page: number;
+  totalPages: number;
+  totalResults: number;
+  results: T[];
+}
+
+export interface Genre {
+  id: number;
+  name: string;
+}
+

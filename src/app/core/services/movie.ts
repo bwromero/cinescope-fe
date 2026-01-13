@@ -1,8 +1,13 @@
-import { Injectable, inject, signal } from '@angular/core';
+import { Injectable, inject, signal, WritableSignal } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { catchError, Observable, of } from 'rxjs';
-import { Movie, PageResponse, Genre } from '../models/movie.model';
+import { catchError, of } from 'rxjs';
+import { Movie, Genre } from '../models/movie.model';
 import { environment } from '../../../environments/enviroment';
+interface MovieCategory {
+  movies: WritableSignal<Movie[]>;
+  loading: WritableSignal<boolean>;
+  error: WritableSignal<string | null>;
+}
 
 @Injectable({
   providedIn: 'root'
@@ -11,14 +16,104 @@ export class MovieService {
   private http = inject(HttpClient);
   private apiUrl = environment.apiUrl;
 
-  private _trendingMovies = signal<Movie[]>([]);
-  private _trendingLoading = signal<boolean>(false);
-  private _trendingError = signal<string | null>(null);
+  
+  private categories: Record<string, MovieCategory> = {
+    trending: {
+      movies: signal<Movie[]>([]),
+      loading: signal<boolean>(false),
+      error: signal<string | null>(null)
+    },
+    nowPlaying: {
+      movies: signal<Movie[]>([]),
+      loading: signal<boolean>(false),
+      error: signal<string | null>(null)
+    },
+    upcoming: {
+      movies: signal<Movie[]>([]),
+      loading: signal<boolean>(false),
+      error: signal<string | null>(null)
+    },
+    topRated: {
+      movies: signal<Movie[]>([]),
+      loading: signal<boolean>(false),
+      error: signal<string | null>(null)
+    },
+    popular: {
+      movies: signal<Movie[]>([]),
+      loading: signal<boolean>(false),
+      error: signal<string | null>(null)
+    }
+  };
+  // ========== MOVIE CATEGORIES ==========
 
-  readonly trendingMovies = this._trendingMovies.asReadonly();
-  readonly trendingLoading = this._trendingLoading.asReadonly();
-  readonly trendingError = this._trendingError.asReadonly();
+  // Public readonly signals
+  // Public readonly signals
+  readonly trendingMovies = this.categories['trending'].movies.asReadonly();
+  readonly trendingLoading = this.categories['trending'].loading.asReadonly();
+  readonly trendingError = this.categories['trending'].error.asReadonly();
 
+  readonly nowPlayingMovies = this.categories['nowPlaying'].movies.asReadonly();
+  readonly nowPlayingLoading = this.categories['nowPlaying'].loading.asReadonly();
+  readonly nowPlayingError = this.categories['nowPlaying'].error.asReadonly();
+
+  readonly upcomingMovies = this.categories['upcoming'].movies.asReadonly();
+  readonly upcomingLoading = this.categories['upcoming'].loading.asReadonly();
+  readonly upcomingError = this.categories['upcoming'].error.asReadonly();
+
+  readonly topRatedMovies = this.categories['topRated'].movies.asReadonly();
+  readonly topRatedLoading = this.categories['topRated'].loading.asReadonly();
+  readonly topRatedError = this.categories['topRated'].error.asReadonly();
+
+  readonly popularMovies = this.categories['popular'].movies.asReadonly();
+  readonly popularLoading = this.categories['popular'].loading.asReadonly();
+  readonly popularError = this.categories['popular'].error.asReadonly();
+  // ========== GENERIC LOAD METHOD ==========
+  private loadMovieCategory(
+    categoryKey: keyof typeof this.categories,
+    endpoint: string,
+    errorMessage: string
+  ): void {
+    const category = this.categories[categoryKey];
+
+    // Skip if already loaded
+    if (category.movies().length > 0) return;
+
+    category.loading.set(true);
+    category.error.set(null);
+
+    this.http.get<Movie[]>(`${this.apiUrl}/movies/${endpoint}`).pipe(
+      catchError(() => {
+        category.error.set(errorMessage);
+        return of([]);
+      })
+    ).subscribe(movies => {
+      category.movies.set(movies);
+      category.loading.set(false);
+    });
+  }
+
+  // ========== PUBLIC LOAD METHODS ==========
+  loadTrendingMovies(): void {
+    this.loadMovieCategory('trending', 'trending', 'Failed to load trending movies');
+  }
+
+  loadNowPlayingMovies(): void {
+    this.loadMovieCategory('nowPlaying', 'now_playing', 'Failed to load now playing movies');
+  }
+
+  loadUpcomingMovies(): void {
+    this.loadMovieCategory('upcoming', 'upcoming', 'Failed to load upcoming movies');
+  }
+
+  loadTopRatedMovies(): void {
+    this.loadMovieCategory('topRated', 'top_rated', 'Failed to load top rated movies');
+  }
+
+  loadPopularMovies(): void {
+    this.loadMovieCategory('popular', 'popular', 'Failed to load popular movies');
+  }
+
+  // ========== SEARCH (keep as is) ==========
   private _searchQuery = signal('');
   private _searchResults = signal<Movie[]>([]);
   private _searchLoading = signal(false);
@@ -31,35 +126,11 @@ export class MovieService {
   readonly searchError = this._searchError.asReadonly();
   readonly hasSearched = this._hasSearched.asReadonly();
 
-
-  loadTrendingMovies(): void {
-    if (this._trendingMovies().length > 0) return;
-
-    this._trendingLoading.set(true);
-    this._trendingError.set(null);
-
-    this.http.get<Movie[]>(`${this.apiUrl}/movies/trending`).pipe(
-      catchError(err => {
-        this._trendingError.set('Failed to load trending movies');
-        return of([]);
-      })
-    ).subscribe(movies => {
-      this._trendingMovies.set(movies);
-      this._trendingLoading.set(false);
-    })
-  }
-
-
-  getPopularMovies(page = 1): Observable<PageResponse<Movie>> {
-    return this.http.get<PageResponse<Movie>>(`${this.apiUrl}/movies/popular?page=${page}`);
-  }
-
   search(query: string): void {
     const trimmed = query.trim();
     this._searchQuery.set(trimmed);
     this._searchError.set(null);
 
-    // Clear results if query too short
     if (trimmed.length < 2) {
       this._searchResults.set([]);
       this._searchLoading.set(false);
@@ -87,7 +158,8 @@ export class MovieService {
     this._searchError.set(null);
   }
 
-  getMovieDetails(id: number): Observable<Movie> {
+  // ========== OTHER METHODS (keep as is) ==========
+  getMovieDetails(id: number) {
     return this.http.get<Movie>(`${this.apiUrl}/movies/${id}`);
   }
 
@@ -96,7 +168,6 @@ export class MovieService {
 
   loadGenres(): void {
     if (this._genres().length > 0) return;
-
     this.http.get<Genre[]>(`${this.apiUrl}/movies/genres`).subscribe(
       genres => this._genres.set(genres)
     );
