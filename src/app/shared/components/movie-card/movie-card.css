@@ -1,84 +1,91 @@
 .movie-card {
-    display: block;
-    text-decoration: none;
-    color: inherit;
-    border-radius: 12px;
-    overflow: hidden;
-    background: var(--card-bg, #1a1a2e);
-    transition: transform 0.2s, box-shadow 0.2s;
-    cursor: pointer;
-  }
-  
-  .movie-card:hover {
-    transform: translateY(-8px);
-    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.4);
-  }
-  
-  .poster-wrapper {
-    position: relative;
-    aspect-ratio: 2/3;
-    overflow: hidden;
-  }
-  
-  .poster {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-  }
-  
-  .rating-badge {
-    position: absolute;
-    top: 8px;
-    right: 20px;
-    background: rgba(0, 0, 0, 0.75);
-    padding: 4px 8px;
-    border-radius: 6px;
-    font-size: 0.85rem;
-    font-weight: 600;
-  }
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  text-decoration: none;
+  color: inherit;
+  border-radius: 12px;
+  overflow: hidden;
+  background: var(--card-bg, #1a1a2e);
+  transition: transform 0.2s, box-shadow 0.2s;
+  cursor: pointer;
+}
 
-  .watchlist-badge {
-    position: absolute;
-    top: 8px;
-    left: 8px;
-    font-size: 1.5rem;
-    background: rgba(0, 0, 0, 0.7);
-    padding: 4px 6px;
-    border-radius: 4px;
-    font-size: 0.85rem;
-  }
-  
-  .info {
-    padding: 12px;
-  }
-  
-  .title {
-    margin: 0;
-    font-size: 1rem;
-    font-weight: 600;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-  }
-  
-  .year {
-    font-size: 0.85rem;
-    color: var(--text-muted, #888);
-  }
+.movie-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.4);
+}
 
-  .genre-tags {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 6px;
-    margin-top: 6px;
-  }
-  
-  .genre-tag {
-    background: rgba(233, 69, 96, 0.15);
-    color: #e94560;
-    padding: 2px 8px;
-    border-radius: 4px;
-    font-size: 0.65rem;
-    font-weight: 500;
-  }
-  
+.poster-wrapper {
+  position: relative;
+  aspect-ratio: 2/3;
+  overflow: hidden;
+}
+
+.poster {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.rating-badge {
+  position: absolute;
+  top: 8px;
+  right: 20px;
+  background: rgba(0, 0, 0, 0.75);
+  padding: 4px 8px;
+  border-radius: 6px;
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+
+.watchlist-badge {
+  position: absolute;
+  top: 8px;
+  left: 8px;
+  font-size: 1.5rem;
+  background: rgba(0, 0, 0, 0.7);
+  padding: 4px 6px;
+  border-radius: 4px;
+  font-size: 0.85rem;
+}
+
+.movie-card .info {
+  flex: 1;  /* Takes remaining space, makes cards equal height */
+  display: flex;
+  flex-direction: column;
+}
+
+.info {
+  padding: 12px;
+}
+
+.title {
+  margin: 0;
+  font-size: 1rem;
+  font-weight: 600;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.year {
+  font-size: 0.85rem;
+  color: var(--text-muted, #888);
+}
+
+.genre-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 6px;
+}
+
+.genre-tag {
+  background: rgba(233, 69, 96, 0.15);
+  color: #e94560;
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-size: 0.65rem;
+  font-weight: 500;
+}
