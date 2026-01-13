@@ -25,6 +25,11 @@ export class MovieCard {
     this.watchListService.isInWatchlist(this.movie().id)
   );
 
+  toggleWatchlist(event: Event){
+    event.stopPropagation();
+    this.watchListService.toggleWatchlist(this.movie());
+    
+  }
   onClick(): void {
     this.cardClick.emit(this.movie());
   }
