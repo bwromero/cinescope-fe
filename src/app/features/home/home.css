@@ -182,7 +182,6 @@
 .hero-featured .swiper .swiper-button-next,
 .hero-featured .swiper .swiper-button-prev {
   color: white;
-  background: rgba(0, 0, 0, 0.5);
   width: 50px;
   height: 50px;
   border-radius: 50%;
@@ -196,8 +195,7 @@
 
 .hero-featured .swiper .swiper-button-next:hover,
 .hero-featured .swiper .swiper-button-prev:hover {
-  background: #e94560;
-  transform: scale(1.1);
+  transform: scale(1.2);
 }
 
 .hero-featured .swiper .swiper-button-next::after,
@@ -208,18 +206,4 @@
 /* Pagination Dots - Higher Specificity (no !important needed) */
 .hero-featured .swiper .swiper-pagination {
   bottom: 30px;
-}
-
-.hero-featured .swiper .swiper-pagination-bullet {
-  width: 12px;
-  height: 12px;
-  background: rgba(255, 255, 255, 0.5);
-  opacity: 1;
-  transition: all 0.3s ease;
-}
-
-.hero-featured .swiper .swiper-pagination-bullet-active {
-  background: #e94560;
-  width: 32px;
-  border-radius: 6px;
 }
