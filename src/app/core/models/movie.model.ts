@@ -8,7 +8,7 @@ export interface Movie {
   synopsis: string;
   posterPath: string;
   backdropPath: string;      // ✅ Already have
-  releaseDate: string;
+  releaseDate?: string;
   voteAverage: number;
   rating: number;
   voteCount: number;         // ✅ Add

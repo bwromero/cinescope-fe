@@ -1,4 +1,34 @@
 <section class="home">
+
+  @if (featuredMovie(); as featured) {
+    <div class="hero-featured">
+      <!-- Backdrop Image -->
+      <div class="hero-backdrop">
+        <img 
+          [src]="featured.backdropPath | tmdbImage:'original'" 
+          [alt]="featured.title"
+          class="backdrop-img"
+        />
+        <div class="backdrop-overlay"></div>
+      </div>
+
+      <!-- Content -->
+      <div class="hero-content">
+        <h1 class="hero-title">{{ featured.title }}</h1>
+        <p class="hero-year">{{ featured.releaseDate?.split('-')?.[0] || 'N/A' }}</p>        <p class="hero-synopsis">{{ featured.synopsis || featured.overview }}</p>
+        
+        <div class="hero-actions">
+          <button class="btn-primary" (click)="onMovieClick(featured)">
+            ℹ️ View Details
+          </button>
+          <button class="btn-secondary" (click)="toggleWatchlist(featured)">
+            {{ isInWatchlist(featured.id) ? '✓ In Watchlist' : '+ Add to Watchlist' }}
+          </button>
+        </div>
+      </div>
+    </div>
+  }
+
   <div class="hero">
     <h1>Discover Movies</h1>
     <p>Explore trending films and build your watchlist</p>

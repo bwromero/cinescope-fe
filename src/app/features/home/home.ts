@@ -3,16 +3,19 @@ import { MovieService } from '../../core/services/movie';
 import { MovieCard } from '../../shared/components/movie-card/movie-card';
 import { Router } from '@angular/router';
 import { Movie } from '../../core/models/movie.model';
+import { TmdbImagePipe } from '../../shared/pipes/tmdb-image-pipe';
+import { WatchlistService } from '../../core/services/watchlist';
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [MovieCard],
+  imports: [MovieCard, TmdbImagePipe],
   templateUrl: './home.html',
   styleUrl: './home.css',
 })
 export class Home {
   private movieService = inject(MovieService);
+  private watchlistService = inject(WatchlistService); // Add this if not already injected
   private router = inject(Router);
 
   // Trending
@@ -40,6 +43,11 @@ export class Home {
   protected readonly popularLoading = this.movieService.popularLoading;
   protected readonly popularError = this.movieService.popularError;
 
+  protected readonly featuredMovie = computed(() => {
+    const trending = this.trendingMovies();
+    return trending.length > 0 ? trending[0] : null;
+  });
+
   constructor() {
     this.loadMovies();
   }
@@ -50,6 +58,14 @@ export class Home {
     this.movieService.loadUpcomingMovies();
     this.movieService.loadTopRatedMovies();
     this.movieService.loadPopularMovies();
+  }
+
+  protected isInWatchlist(movieId: number): boolean {
+    return this.watchlistService.isInWatchlist(movieId);
+  }
+  
+  protected toggleWatchlist(movie: Movie): void {
+    this.watchlistService.toggleWatchlist(movie);
   }
 
   onMovieClick(movie: Movie): void {
