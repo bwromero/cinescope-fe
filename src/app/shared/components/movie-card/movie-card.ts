@@ -2,11 +2,12 @@ import { Component, computed, inject, input, output } from '@angular/core';
 import { Movie } from '../../../core/models/movie.model';
 import { TmdbImagePipe } from '../../pipes/tmdb-image-pipe';
 import { WatchlistService } from '../../../core/services/watchlist';
+import { GenreNamesPipe } from '../../pipes/genre-names-pipe';
 
 @Component({
   selector: 'app-movie-card',
   standalone: true,
-  imports: [TmdbImagePipe],
+  imports: [TmdbImagePipe, GenreNamesPipe],
   templateUrl: './movie-card.html',
   styleUrl: './movie-card.css',
 })

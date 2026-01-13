@@ -1,6 +1,7 @@
 import { Component, inject, signal } from '@angular/core';
 import { NavigationCancel, NavigationEnd, NavigationError, NavigationStart, Router, RouterOutlet } from '@angular/router';
 import { Header } from './layout/header/header';
+import { MovieService } from './core/services/movie';
 
 @Component({
   selector: 'app-root',
@@ -53,6 +54,8 @@ export class App {
   protected isLoading = signal(false);
 
   constructor() {
+    inject(MovieService).loadGenres();
+
     this.router.events.subscribe(event => {
       if (event instanceof NavigationStart) {
         this.isLoading.set(true);

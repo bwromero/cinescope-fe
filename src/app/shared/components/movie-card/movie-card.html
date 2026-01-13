@@ -17,5 +17,12 @@
   <div class="info">
     <h3 class="title">{{ movie().title }}</h3>
     <span class="year">{{ year() }}</span>
+    @if (movie().genreIds?.length) {
+      <div class="genre-tags">
+        @for (genre of movie().genreIds | genreNames:3; track genre) {
+          <span class="genre-tag">{{ genre }}</span>
+        }
+      </div>
+    }
   </div>
 </article>
