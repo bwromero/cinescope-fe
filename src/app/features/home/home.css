@@ -23,7 +23,7 @@
   margin: 0;
 }
 
-  /* Featured Hero Section */
+/* Featured Hero Section */
 .hero-featured {
   position: relative;
   width: 100%;
@@ -151,4 +151,75 @@
   .btn-secondary {
     width: 100%;
   }
+}
+
+/* Add to the end of home.css */
+
+/* Swiper Height Fix */
+.hero-featured .swiper,
+.hero-featured .swiper-wrapper,
+.hero-featured .swiper-slide {
+  height: 100%; /* Inherit parent's height */
+}
+
+.swiper-slide .hero-backdrop {
+  position: absolute;
+  inset: 0;
+  height: 100%;
+}
+
+.swiper-slide .hero-content {
+  height: 100%;
+}
+
+/* Ensure swiper doesn't shrink */
+.swiper-slide {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Navigation Arrows - Higher Specificity (no !important needed) */
+.hero-featured .swiper .swiper-button-next,
+.hero-featured .swiper .swiper-button-prev {
+  color: white;
+  background: rgba(0, 0, 0, 0.5);
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  transition: all 0.3s ease;
+}
+
+.hero-featured .swiper .swiper-button-next svg,
+.hero-featured .swiper .swiper-button-prev svg {
+  height: 50%;
+}
+
+.hero-featured .swiper .swiper-button-next:hover,
+.hero-featured .swiper .swiper-button-prev:hover {
+  background: #e94560;
+  transform: scale(1.1);
+}
+
+.hero-featured .swiper .swiper-button-next::after,
+.hero-featured .swiper .swiper-button-prev::after {
+  font-size: 20px;
+}
+
+/* Pagination Dots - Higher Specificity (no !important needed) */
+.hero-featured .swiper .swiper-pagination {
+  bottom: 30px;
+}
+
+.hero-featured .swiper .swiper-pagination-bullet {
+  width: 12px;
+  height: 12px;
+  background: rgba(255, 255, 255, 0.5);
+  opacity: 1;
+  transition: all 0.3s ease;
+}
+
+.hero-featured .swiper .swiper-pagination-bullet-active {
+  background: #e94560;
+  width: 32px;
+  border-radius: 6px;
 }
