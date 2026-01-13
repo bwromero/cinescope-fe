@@ -65,3 +65,20 @@
     font-size: 0.85rem;
     color: var(--text-muted, #888);
   }
+
+  .genre-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-top: 6px;
+  }
+  
+  .genre-tag {
+    background: rgba(233, 69, 96, 0.15);
+    color: #e94560;
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-size: 0.65rem;
+    font-weight: 500;
+  }
+  
