@@ -25,7 +25,6 @@ import { MovieService } from './core/services/movie';
       100% { background-position: -200% 0; }
     }
 
-    /* Or use a spinner overlay */
     .global-loading.overlay {
       position: fixed;
       inset: 0;

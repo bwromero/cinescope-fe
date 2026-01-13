@@ -16,12 +16,11 @@ import { SafeUrlPipe } from '../../shared/pipes/safe-url-pipe';
 })
 export class MovieDetails {
   private watchlistService = inject(WatchlistService);
-  private location = inject(Location);  // 👈 Use Location instead of Router
+  private location = inject(Location);
   protected id = input.required<string>();
   protected movie = input<Movie | null>(null);
   protected showTrailer = signal(false);
 
-  // Computed values
   protected year = computed(() =>
     this.movie()?.releaseDate?.split('-')[0] ?? ''
   );

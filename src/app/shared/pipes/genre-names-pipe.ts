@@ -1,4 +1,3 @@
-// src/app/shared/pipes/genre-names-pipe.ts
 import { Pipe, PipeTransform, inject } from '@angular/core';
 import { MovieService } from '../../core/services/movie';
 

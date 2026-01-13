@@ -87,7 +87,6 @@
     background: #27ae60;
   }
 
-  /* Actions container */
 .actions {
   display: flex;
   gap: 16px;
@@ -95,7 +94,6 @@
   flex-wrap: wrap;
 }
 
-/* Back button */
 .btn-back {
   padding: 14px 24px;
   font-size: 1rem;
@@ -114,7 +112,6 @@
   background: rgba(255, 255, 255, 0.05);
 }
 
-/* Error state styling */
 .error {
   display: flex;
   flex-direction: column;
@@ -145,7 +142,6 @@
   color: white;
 }
 
-/* Not found styling */
 .not-found {
   display: flex;
   justify-content: center;
@@ -229,7 +225,6 @@
   font-size: 0.85rem;
 }
 
-/* Play Trailer Button */
 .btn-trailer {
   padding: 14px 28px;
   font-size: 1rem;
@@ -251,7 +246,6 @@
   transform: scale(1.02);
 }
 
-/* Trailer Modal Overlay */
 .trailer-modal {
   position: fixed;
   inset: 0;
@@ -268,7 +262,6 @@
   to { opacity: 1; }
 }
 
-/* Modal Content Container */
 .trailer-content {
   position: relative;
   width: 90%;
@@ -286,7 +279,6 @@
   border: none;
 }
 
-/* Close Button */
 .close-btn {
   position: absolute;
   top: -40px;

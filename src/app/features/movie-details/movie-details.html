@@ -1,12 +1,10 @@
 @if (movie(); as m) {
 <div class="details-page">
-  <!-- Backdrop using pipe -->
   @if (m.backdropPath) {
   <img appImageLoader [src]="m.backdropPath | tmdbImage : 'w1280'" alt="" class="backdrop-img" />
   }
 
   <div class="content">
-    <!-- Poster using pipe -->
     <img
       appImageLoader
       [src]="m.posterPath | tmdbImage : 'w500'"
@@ -54,7 +52,6 @@
   </div>
 </div>
 
-<!-- Trailer Modal (outside details-page for proper fixed positioning) -->
 @if (showTrailer()) {
 <div class="trailer-modal" (click)="closeTrailer()">
   <div class="trailer-content" (click)="$event.stopPropagation()">

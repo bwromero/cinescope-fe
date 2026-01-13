@@ -1,56 +1,76 @@
-import { Injectable, signal, computed } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
+import { Injectable, signal, computed, inject } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { catchError, of, tap } from 'rxjs';
 import { Movie } from '../models/movie.model';
+import { environment } from '../../../environments/enviroment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class WatchlistService {
-  private storageKey = 'cinescope_watchlist';
+  private http = inject(HttpClient);
+  private apiUrl = `${environment.apiUrl}/watchlist`;
   
-  // BehaviorSubject holds the state
-  private watchlistSubject = new BehaviorSubject<Movie[]>(this.loadFromStorage());
+  watchlist = signal<Movie[]>([]);
+  loading = signal<boolean>(false);
+  error = signal<string | null>(null);
   
-  // Expose as observable for subscribers
-  watchlist$ = this.watchlistSubject.asObservable();
-  
-  // Also expose as signal for easier template usage
-  watchlist = signal<Movie[]>(this.loadFromStorage());
-  
-  // Computed: count for header badge
   count = computed(() => this.watchlist().length);
-
+  
   watchlistIds = computed(() => new Set(this.watchlist().map(m => m.id)));
 
-
-  private loadFromStorage(): Movie[] {
-    if (typeof localStorage === 'undefined') return [];
-    const stored = localStorage.getItem(this.storageKey);
-    return stored ? JSON.parse(stored) : [];
+  constructor() {
+    this.loadWatchlist();
   }
 
-  private saveToStorage(movies: Movie[]): void {
-    localStorage.setItem(this.storageKey, JSON.stringify(movies));
+  loadWatchlist(): void {
+    this.loading.set(true);
+    this.error.set(null);
+
+    this.http.get<Movie[]>(this.apiUrl).pipe(
+      catchError((err) => {
+        console.error('Failed to load watchlist', err);
+        this.error.set('Failed to load watchlist');
+        return of([]);
+      })
+    ).subscribe(movies => {
+      this.watchlist.set(movies);
+      this.loading.set(false);
+    });
   }
 
   isInWatchlist(movieId: number): boolean {
-    return this.watchlistIds().has(movieId);  // Now uses the Set too!
+    return this.watchlistIds().has(movieId);
   }
 
   addToWatchlist(movie: Movie): void {
     if (this.isInWatchlist(movie.id)) return;
     
-    const updated = [...this.watchlist(), movie];
-    this.watchlist.set(updated);
-    this.watchlistSubject.next(updated);
-    this.saveToStorage(updated);
+    const previousWatchlist = [...this.watchlist()];
+    this.watchlist.set([...this.watchlist(), movie]);
+
+    this.http.post(this.apiUrl, movie).pipe(
+      catchError((err) => {
+        console.error('Failed to add to watchlist', err);
+        this.watchlist.set(previousWatchlist);
+        this.error.set('Failed to add to watchlist');
+        return of(null);
+      })
+    ).subscribe();
   }
 
   removeFromWatchlist(movieId: number): void {
-    const updated = this.watchlist().filter(m => m.id !== movieId);
-    this.watchlist.set(updated);
-    this.watchlistSubject.next(updated);
-    this.saveToStorage(updated);
+    const previousWatchlist = [...this.watchlist()];
+    this.watchlist.set(this.watchlist().filter(m => m.id !== movieId));
+
+    this.http.delete(`${this.apiUrl}/${movieId}`).pipe(
+      catchError((err) => {
+        console.error('Failed to remove from watchlist', err);
+        this.watchlist.set(previousWatchlist);
+        this.error.set('Failed to remove from watchlist');
+        return of(null);
+      })
+    ).subscribe();
   }
 
   toggleWatchlist(movie: Movie): void {

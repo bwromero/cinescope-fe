@@ -32,13 +32,11 @@ export class Search {
   }
 
   private setupSearch() {
-    // Restore previous query if exists
     const savedQuery = this.movieService.searchQuery();
     if (savedQuery) {
       this.searchControl.setValue(savedQuery, { emitEvent: false });
     }
 
-    // Debounce input and trigger search
     this.searchControl.valueChanges.pipe(
       debounceTime(400),
       distinctUntilChanged(),

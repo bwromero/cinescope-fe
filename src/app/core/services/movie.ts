@@ -44,10 +44,7 @@ export class MovieService {
       error: signal<string | null>(null)
     }
   };
-  // ========== MOVIE CATEGORIES ==========
 
-  // Public readonly signals
-  // Public readonly signals
   readonly trendingMovies = this.categories['trending'].movies.asReadonly();
   readonly trendingLoading = this.categories['trending'].loading.asReadonly();
   readonly trendingError = this.categories['trending'].error.asReadonly();
@@ -67,7 +64,7 @@ export class MovieService {
   readonly popularMovies = this.categories['popular'].movies.asReadonly();
   readonly popularLoading = this.categories['popular'].loading.asReadonly();
   readonly popularError = this.categories['popular'].error.asReadonly();
-  // ========== GENERIC LOAD METHOD ==========
+
   private loadMovieCategory(
     categoryKey: keyof typeof this.categories,
     endpoint: string,
@@ -75,7 +72,6 @@ export class MovieService {
   ): void {
     const category = this.categories[categoryKey];
 
-    // Skip if already loaded
     if (category.movies().length > 0) return;
 
     category.loading.set(true);
@@ -92,7 +88,6 @@ export class MovieService {
     });
   }
 
-  // ========== PUBLIC LOAD METHODS ==========
   loadTrendingMovies(): void {
     this.loadMovieCategory('trending', 'trending', 'Failed to load trending movies');
   }
@@ -113,7 +108,6 @@ export class MovieService {
     this.loadMovieCategory('popular', 'popular', 'Failed to load popular movies');
   }
 
-  // ========== SEARCH (keep as is) ==========
   private _searchQuery = signal('');
   private _searchResults = signal<Movie[]>([]);
   private _searchLoading = signal(false);
@@ -158,7 +152,6 @@ export class MovieService {
     this._searchError.set(null);
   }
 
-  // ========== OTHER METHODS (keep as is) ==========
   getMovieDetails(id: number) {
     return this.http.get<Movie>(`${this.apiUrl}/movies/${id}`);
   }

@@ -23,7 +23,6 @@
   margin: 0;
 }
 
-/* Featured Hero Section */
 .hero-featured {
   position: relative;
   width: 100%;
@@ -128,7 +127,6 @@
   transform: scale(1.05);
 }
 
-/* Responsive */
 @media (max-width: 768px) {
   .hero-featured {
     height: 60vh;
@@ -153,13 +151,10 @@
   }
 }
 
-/* Add to the end of home.css */
-
-/* Swiper Height Fix */
 .hero-featured .swiper,
 .hero-featured .swiper-wrapper,
 .hero-featured .swiper-slide {
-  height: 100%; /* Inherit parent's height */
+  height: 100%;
 }
 
 .swiper-slide .hero-backdrop {
@@ -172,13 +167,11 @@
   height: 100%;
 }
 
-/* Ensure swiper doesn't shrink */
 .swiper-slide {
   display: flex;
   flex-direction: column;
 }
 
-/* Navigation Arrows - Higher Specificity (no !important needed) */
 .hero-featured .swiper .swiper-button-next,
 .hero-featured .swiper .swiper-button-prev {
   color: white;
@@ -203,7 +196,6 @@
   font-size: 20px;
 }
 
-/* Pagination Dots - Higher Specificity (no !important needed) */
 .hero-featured .swiper .swiper-pagination {
   bottom: 30px;
 }

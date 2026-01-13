@@ -68,7 +68,7 @@
 }
 
 .movie-card .info {
-  flex: 1;  /* Takes remaining space, makes cards equal height */
+  flex: 1;
   display: flex;
   flex-direction: column;
 }

@@ -1,11 +1,9 @@
-<!-- Featured Hero (Full Width) -->
 @if (featuredMovies().length > 0) {
   <div class="hero-featured">
-    <div class="swiper" #heroSwiper>  <!-- 👈 Add this reference -->
+    <div class="swiper" #heroSwiper>
       <div class="swiper-wrapper">
         @for (featured of featuredMovies(); track featured.id) {
           <div class="swiper-slide">
-            <!-- Backdrop Image -->
             <div class="hero-backdrop">
               <img
                 [src]="featured.backdropPath | tmdbImage:'original'"
@@ -15,7 +13,6 @@
               <div class="backdrop-overlay"></div>
             </div>
 
-            <!-- Content -->
             <div class="hero-content">
               <h1 class="hero-title">{{ featured.title }}</h1>
               <p class="hero-year">{{ featured.releaseDate?.split('-')?.[0] || 'N/A' }}</p>
@@ -34,17 +31,14 @@
         }
       </div>
 
-      <!-- Navigation Arrows -->
       <div class="swiper-button-prev"></div>
       <div class="swiper-button-next"></div>
 
-      <!-- Pagination Dots -->
       <div class="swiper-pagination"></div>
     </div>
   </div>
 }
 
-<!-- Main Content Container -->
 <section class="home">
   <div class="hero">
     <h1>Discover Movies</h1>

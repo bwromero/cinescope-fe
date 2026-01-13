@@ -9,7 +9,6 @@ export class ImageLoaderDirective {
   
   fallback = input<string>('assets/no-poster.png');
 
-  // HostBinding - binds to class properties on the host element
   @HostBinding('class.img-loading') 
   get isLoading() { return !this.loaded; }
 
@@ -19,7 +18,6 @@ export class ImageLoaderDirective {
   @HostBinding('class.img-error') 
   hasError = false;
 
-  // HostListener - listens to events on the host element
   @HostListener('load')
   onLoad(): void {
     this.loaded = true;
@@ -28,7 +26,7 @@ export class ImageLoaderDirective {
   @HostListener('error')
   onError(): void {
     this.hasError = true;
-    this.loaded = true; // Stop loading state
+    this.loaded = true;
     this.el.nativeElement.src = this.fallback();
   }
 }

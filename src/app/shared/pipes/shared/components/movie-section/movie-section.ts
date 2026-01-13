@@ -11,13 +11,11 @@ import { Movie } from '../../../../../core/models/movie.model';
   styleUrl: './movie-section.css',
 })
 export class MovieSection {
-  // Inputs
   title = input.required<string>();
   movies = input.required<Movie[]>();
   loading = input<boolean>(false);
   error = input<string | null>(null);
 
-  // Output
   movieClick = output<Movie>();
 
   onMovieClick(movie: Movie): void {
