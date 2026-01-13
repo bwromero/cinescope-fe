@@ -1,3 +1,5 @@
+import { Video } from "./video.model";
+
 export interface Movie {
   id: number;
   title: string;
@@ -14,6 +16,7 @@ export interface Movie {
   status: string;            // ✅ Add ("Released", "Post-Production", etc.)
   popularity: number;
   genreIds?: number[];
+  videos?: { results: Video[] };
 }
   
   export interface PageResponse<T> {
