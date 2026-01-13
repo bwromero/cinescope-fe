@@ -1,45 +1,27 @@
 .home {
-    max-width: 1400px;
-    margin: 0 auto;
-    padding: 20px;
-  }
-  
-  .hero {
-    text-align: center;
-    padding: 60px 20px;
-    margin-bottom: 40px;
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-    border-radius: 20px;
-  }
-  
-  .hero h1 {
-    font-size: 3rem;
-    margin: 0 0 10px;
-  }
-  
-  .hero p {
-    font-size: 1.2rem;
-    opacity: 0.9;
-    margin: 0;
-  }
-  
-  .section-title {
-    font-size: 1.5rem;
-    margin-bottom: 20px;
-  }
-  
-  .movie-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-    gap: 24px;
-  }
-  
-  
-  .loading {
-    text-align: center;
-    padding: 40px;
-    color: var(--text-muted, #888);
-  }
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.hero {
+  text-align: center;
+  padding: 60px 20px;
+  margin-bottom: 40px;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  border-radius: 20px;
+}
+
+.hero h1 {
+  font-size: 3rem;
+  margin: 0 0 10px;
+}
+
+.hero p {
+  font-size: 1.2rem;
+  opacity: 0.9;
+  margin: 0;
+}
 
   /* Featured Hero Section */
 .hero-featured {

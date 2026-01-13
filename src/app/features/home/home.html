@@ -35,112 +35,44 @@
   </div>
 
   <!-- 🔥 Trending This Week -->
-  <section class="section">
-    <h2 class="section-title">🔥 Trending This Week</h2>
-    
-    @if (trendingLoading()) {
-      <div class="loading">Loading movies...</div>
-    } @else if (trendingError()) {
-      <div class="error">{{ trendingError() }}</div>
-    } @else if (trendingMovies().length === 0) {
-      <div class="empty">No movies found</div>
-    } @else {
-      <div class="movie-grid">
-        @for (movie of trendingMovies(); track movie.id) {
-          <app-movie-card 
-            [movie]="movie" 
-            (cardClick)="onMovieClick($event)" 
-          />
-        }
-      </div>
-    }
-  </section>
+    <!-- Refactored sections! -->
+    <app-movie-section 
+    title="🔥 Trending This Week"
+    [movies]="trendingMovies()"
+    [loading]="trendingLoading()"
+    [error]="trendingError()"
+    (movieClick)="onMovieClick($event)"
+  />
 
-  <!-- 🎬 Now Playing -->
-  <section class="section">
-    <h2 class="section-title">🎬 Now Playing</h2>
-    
-    @if (nowPlayingLoading()) {
-      <div class="loading">Loading movies...</div>
-    } @else if (nowPlayingError()) {
-      <div class="error">{{ nowPlayingError() }}</div>
-    } @else if (nowPlayingMovies().length === 0) {
-      <div class="empty">No movies found</div>
-    } @else {
-      <div class="movie-grid">
-        @for (movie of nowPlayingMovies(); track movie.id) {
-          <app-movie-card 
-            [movie]="movie" 
-            (cardClick)="onMovieClick($event)" 
-          />
-        }
-      </div>
-    }
-  </section>
+  <app-movie-section 
+    title="🎬 Now Playing"
+    [movies]="nowPlayingMovies()"
+    [loading]="nowPlayingLoading()"
+    [error]="nowPlayingError()"
+    (movieClick)="onMovieClick($event)"
+  />
 
-  <!-- 📅 Coming Soon -->
-  <section class="section">
-    <h2 class="section-title">📅 Coming Soon</h2>
-    
-    @if (upcomingLoading()) {
-      <div class="loading">Loading movies...</div>
-    } @else if (upcomingError()) {
-      <div class="error">{{ upcomingError() }}</div>
-    } @else if (upcomingMovies().length === 0) {
-      <div class="empty">No movies found</div>
-    } @else {
-      <div class="movie-grid">
-        @for (movie of upcomingMovies(); track movie.id) {
-          <app-movie-card 
-            [movie]="movie" 
-            (cardClick)="onMovieClick($event)" 
-          />
-        }
-      </div>
-    }
-  </section>
+  <app-movie-section 
+    title="📅 Coming Soon"
+    [movies]="upcomingMovies()"
+    [loading]="upcomingLoading()"
+    [error]="upcomingError()"
+    (movieClick)="onMovieClick($event)"
+  />
 
-  <!-- ⭐ Top Rated -->
-  <section class="section">
-    <h2 class="section-title">⭐ Top Rated</h2>
-    
-    @if (topRatedLoading()) {
-      <div class="loading">Loading movies...</div>
-    } @else if (topRatedError()) {
-      <div class="error">{{ topRatedError() }}</div>
-    } @else if (topRatedMovies().length === 0) {
-      <div class="empty">No movies found</div>
-    } @else {
-      <div class="movie-grid">
-        @for (movie of topRatedMovies(); track movie.id) {
-          <app-movie-card 
-            [movie]="movie" 
-            (cardClick)="onMovieClick($event)" 
-          />
-        }
-      </div>
-    }
-  </section>
+  <app-movie-section 
+    title="⭐ Top Rated"
+    [movies]="topRatedMovies()"
+    [loading]="topRatedLoading()"
+    [error]="topRatedError()"
+    (movieClick)="onMovieClick($event)"
+  />
 
-  <!-- 🎭 Popular -->
-  <section class="section">
-    <h2 class="section-title">🎭 Popular</h2>
-    
-    @if (popularLoading()) {
-      <div class="loading">Loading movies...</div>
-    } @else if (popularError()) {
-      <div class="error">{{ popularError() }}</div>
-    } @else if (popularMovies().length === 0) {
-      <div class="empty">No movies found</div>
-    } @else {
-      <div class="movie-grid">
-        @for (movie of popularMovies(); track movie.id) {
-          <app-movie-card 
-            [movie]="movie" 
-            (cardClick)="onMovieClick($event)" 
-          />
-        }
-      </div>
-    }
-  </section>
+  <app-movie-section 
+    title="🎭 Popular"
+    [movies]="popularMovies()"
+    [loading]="popularLoading()"
+    [error]="popularError()"
+    (movieClick)="onMovieClick($event)"
+  />
 </section>

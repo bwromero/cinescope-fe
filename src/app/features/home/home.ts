@@ -5,11 +5,12 @@ import { Router } from '@angular/router';
 import { Movie } from '../../core/models/movie.model';
 import { TmdbImagePipe } from '../../shared/pipes/tmdb-image-pipe';
 import { WatchlistService } from '../../core/services/watchlist';
+import { MovieSection } from '../../shared/pipes/shared/components/movie-section/movie-section';
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [MovieCard, TmdbImagePipe],
+  imports: [MovieCard, TmdbImagePipe, MovieSection],
   templateUrl: './home.html',
   styleUrl: './home.css',
 })
