@@ -21,7 +21,7 @@ export class MovieCard {
   rating = computed(() => this.movie().rating?.toFixed(1) ?? 'N/A');
 
   protected isInWatchlist = computed(() => 
-    this.watchListService.watchlistIds().has(this.movie().id)
+    this.watchListService.isInWatchlist(this.movie().id)
   );
 
   onClick(): void {
