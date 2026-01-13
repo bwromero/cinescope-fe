@@ -10,6 +10,9 @@
     @if (showRating()) {
       <div class="rating-badge">⭐ {{ rating() }}</div>
     }
+    @if (isInWatchlist()) {
+      <div class="watchlist-badge">🔖</div>
+    }
   </div>
   <div class="info">
     <h3 class="title">{{ movie().title }}</h3>

@@ -20,6 +20,9 @@ export class WatchlistService {
   // Computed: count for header badge
   count = computed(() => this.watchlist().length);
 
+  watchlistIds = computed(() => new Set(this.watchlist().map(m => m.id)));
+
+
   private loadFromStorage(): Movie[] {
     if (typeof localStorage === 'undefined') return [];
     const stored = localStorage.getItem(this.storageKey);
@@ -31,7 +34,7 @@ export class WatchlistService {
   }
 
   isInWatchlist(movieId: number): boolean {
-    return this.watchlist().some(m => m.id === movieId);
+    return this.watchlistIds().has(movieId);  // Now uses the Set too!
   }
 
   addToWatchlist(movie: Movie): void {
