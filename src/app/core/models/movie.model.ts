@@ -13,7 +13,7 @@ export interface Movie {
   tagline: string;           // ✅ Add
   status: string;            // ✅ Add ("Released", "Post-Production", etc.)
   popularity: number;
-  genreIds: number[];
+  genreIds?: number[];
 }
   
   export interface PageResponse<T> {
