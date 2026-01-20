@@ -20,13 +20,10 @@
   margin-bottom: 3rem;
   flex-wrap: wrap;
 
-
-
   .search-filter {
     appearance: none;
     background: var(--bg-secondary);
     color: #e5e7eb;
-
     border: 1px solid rgba(255, 255, 255, 0.08);
     border-radius: 10px;
     padding: 0.5rem;
