@@ -53,8 +53,6 @@
 
     &:focus {
       outline: none;
-      border-color: #facc15;
-      /* gold accent */
       box-shadow: 0 0 0 2px rgba(250, 204, 21, 0.15);
     }
   }
