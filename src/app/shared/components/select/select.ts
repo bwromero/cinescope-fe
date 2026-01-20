@@ -20,20 +20,12 @@ export interface SelectOption<T = any> {
   styleUrl: './select.css',
 })
 export class Select<T> implements ControlValueAccessor {
-  /* =======================
-      INPUT SIGNALS
-   ======================= */
+
   readonly options = input<SelectOption<T>[]>([]);
   readonly placeholder = input<string>('Select option');
 
-  /* =======================
-     OUTPUT SIGNAL (OPTIONAL)
-  ======================= */
   readonly changed = output<T | null>();
 
-  /* =======================
-     INTERNAL STATE SIGNALS
-  ======================= */
   readonly open = signal(false);
   readonly value = signal<T | null>(null);
   readonly activeIndex = signal(-1);
@@ -43,9 +35,6 @@ export class Select<T> implements ControlValueAccessor {
     return this.options().find(o => o.value === v)?.label ?? '';
   });
 
-  /* =======================
-     CONTROL VALUE ACCESSOR
-  ======================= */
   private onChange = (_: T | null) => { };
   private onTouched = () => { };
 
@@ -61,9 +50,6 @@ export class Select<T> implements ControlValueAccessor {
     this.onTouched = fn;
   }
 
-  /* =======================
-     ACTIONS
-  ======================= */
   toggle() {
     this.open.update(v => !v);
   }
@@ -77,13 +63,10 @@ export class Select<T> implements ControlValueAccessor {
   select(option: SelectOption<T>) {
     this.value.set(option.value);
     this.onChange(option.value);
-    this.changed.emit(option.value); // optional output
+    this.changed.emit(option.value); 
     this.close();
   }
 
-  /* =======================
-     KEYBOARD SUPPORT
-  ======================= */
   @HostListener('keydown', ['$event'])
   handleKeydown(event: KeyboardEvent) {
     if (!this.open()) return;
