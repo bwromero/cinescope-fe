@@ -24,7 +24,7 @@
 
   .search-filter {
     appearance: none;
-    background: rgba(20, 24, 40, 0.9);
+    background: var(--bg-secondary);
     color: #e5e7eb;
 
     border: 1px solid rgba(255, 255, 255, 0.08);
