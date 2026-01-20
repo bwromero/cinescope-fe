@@ -1,11 +1,12 @@
 import { Component, inject, signal } from '@angular/core';
 import { NavigationCancel, NavigationEnd, NavigationError, NavigationStart, Router, RouterOutlet } from '@angular/router';
 import { Header } from './layout/header/header';
+import { Footer } from './layout/footer/footer';
 import { MovieService } from './core/services/movie';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, Header],
+  imports: [RouterOutlet, Header, Footer],
   templateUrl: './app.html',
   styles: `
     .global-loading {

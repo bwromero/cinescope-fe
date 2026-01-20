@@ -1,6 +1,6 @@
 import { Component, input, output } from '@angular/core';
-import { MovieCard } from '../../../../components/movie-card/movie-card';
-import { Movie } from '../../../../../core/models/movie.model';
+import { Movie } from '../../../core/models/movie.model';
+import { MovieCard } from '../movie-card/movie-card';
 
 
 @Component({

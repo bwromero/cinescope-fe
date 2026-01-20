@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 import { Movie } from '../../core/models/movie.model';
 import { TmdbImagePipe } from '../../shared/pipes/tmdb-image-pipe';
 import { WatchlistService } from '../../core/services/watchlist';
-import { MovieSection } from '../../shared/pipes/shared/components/movie-section/movie-section';
+import { MovieSection } from '../../shared/components/movie-section/movie-section';
 
 import Swiper from 'swiper';
 import { Navigation, Pagination, Autoplay } from 'swiper/modules';
