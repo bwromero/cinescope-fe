@@ -27,10 +27,24 @@ export class Search {
   protected searched = this.movieService.hasSearched;
 
   genres = [
-    'Action',
-    'Adventure',
-    'Animation',
-    'Comedy'
+    "Action",
+    "Adventure",
+    "Animation",
+    "Comedy",
+    "Crime",
+    "Drama",
+    "Documentary",
+    "Science Fiction",
+    "Family",
+    "History",
+    "Horror",
+    "Fantasy",
+    "Music",
+    "Mystery",
+    "Romance",
+    "Thriller",
+    "War",
+    "Western"
   ];
 
   years = Array.from({ length: 111 }, (_, i) => 1916 + i);
@@ -38,7 +52,7 @@ export class Search {
   ratings = ['1+', '2+', '3+', '4+', '5+', '6+', '7+', '8+', '9+'];
 
   sortOptions = ['Newest First', 'Oldest First', 'Top IMDb', 'Bottom IMDb'];
-  
+
   private fb = new FormBuilder();
 
   readonly form = signal(
