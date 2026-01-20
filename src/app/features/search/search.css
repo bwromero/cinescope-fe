@@ -13,6 +13,26 @@
     margin-bottom: 20px;
   }
   
+  .search-filters{
+    display: flex;
+    gap: 0.5rem;
+    justify-content: space-between;
+    margin-bottom: 3rem;
+    flex-wrap: wrap;
+
+
+
+    .search-filter {
+      padding: 0.5rem;
+      min-width: 5rem;
+      flex: 1;
+    }
+
+    .submit-btn {
+      padding: 0.5rem;
+    }
+  }
+
   .search-input {
     width: 100%;
     max-width: 500px;

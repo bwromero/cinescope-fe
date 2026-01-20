@@ -1,5 +1,5 @@
 import { Component, inject, signal, OnInit, DestroyRef } from '@angular/core';
-import { FormControl, ReactiveFormsModule } from '@angular/forms';
+import { FormBuilder, FormControl, ReactiveFormsModule } from '@angular/forms';
 import { MovieService } from '../../core/services/movie';
 import { Movie } from '../../core/models/movie.model';
 import { MovieCard } from '../../shared/components/movie-card/movie-card';
@@ -26,6 +26,29 @@ export class Search {
   protected error = this.movieService.searchError;
   protected searched = this.movieService.hasSearched;
 
+  genres = [
+    'Action',
+    'Adventure',
+    'Animation',
+    'Comedy'
+  ];
+
+  years = Array.from({ length: 111 }, (_, i) => 1916 + i);
+
+  ratings = ['1+', '2+', '3+', '4+', '5+', '6+', '7+', '8+', '9+'];
+
+  sortOptions = ['Newest First', 'Oldest First', 'Top IMDb', 'Bottom IMDb'];
+  
+  private fb = new FormBuilder();
+
+  readonly form = signal(
+    this.fb.group({
+      genre: [''],
+      year: [''],
+      rating: [''],
+      sort: ['']
+    })
+  )
 
   constructor() {
     this.setupSearch();
