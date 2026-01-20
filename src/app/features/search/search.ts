@@ -1,17 +1,17 @@
-import { Component, inject, signal, OnInit, DestroyRef } from '@angular/core';
+import { Component, inject, signal, DestroyRef } from '@angular/core';
 import { FormBuilder, FormControl, ReactiveFormsModule } from '@angular/forms';
 import { MovieService } from '../../core/services/movie';
 import { Movie } from '../../core/models/movie.model';
 import { MovieCard } from '../../shared/components/movie-card/movie-card';
-import { debounceTime, distinctUntilChanged, switchMap, filter, tap, catchError } from 'rxjs/operators';
+import { debounceTime, distinctUntilChanged, filter, tap, catchError } from 'rxjs/operators';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { of } from 'rxjs';
 import { Router } from '@angular/router';
+import { Select } from '../../shared/components/select/select';
 
 @Component({
   selector: 'app-search',
   standalone: true,
-  imports: [ReactiveFormsModule, MovieCard],
+  imports: [ReactiveFormsModule, MovieCard, Select],
   templateUrl: './search.html',
   styleUrl: './search.css',
 })
@@ -27,24 +27,9 @@ export class Search {
   protected searched = this.movieService.hasSearched;
 
   genres = [
-    "Action",
-    "Adventure",
-    "Animation",
-    "Comedy",
-    "Crime",
-    "Drama",
-    "Documentary",
-    "Science Fiction",
-    "Family",
-    "History",
-    "Horror",
-    "Fantasy",
-    "Music",
-    "Mystery",
-    "Romance",
-    "Thriller",
-    "War",
-    "Western"
+    { label: 'Action', value: 'action' },
+    { label: 'Drama', value: 'drama' },
+    { label: 'Sci-Fi', value: 'scifi' }
   ];
 
   years = Array.from({ length: 111 }, (_, i) => 1916 + i);
@@ -85,5 +70,11 @@ export class Search {
 
   onMovieClick(movie: Movie): void {
     this.router.navigate(['/movie', movie.id]);
+  }
+
+  onGenreChange(event: string | null) {
+
+    console.log(event)
+
   }
 }

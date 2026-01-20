@@ -8,30 +8,9 @@
 
   <form action="submit" [formGroup]="form()">
     <div class="search-filters">
-      <select class="search-filter" name="genres" id="genres" formControlName="genre">
-        <option value="" disabled hidden>Select Genre</option>
-        @for(genre of genres; track genre){
-        <option value="genre"  [value]="genre">{{genre}}</option>
-        }
-      </select>
-      <select class="search-filter" name="year" id="year" formControlName="year">
-        <option value="" disabled hidden>Select Year</option>
-        @for(year of years; track year){
-        <option value="year" [value]="year">{{year}}</option>
-        }
-      </select>
-      <select class="search-filter" name="rating" id="rating" formControlName="rating">
-        <option value="" disabled hidden>Select Rating</option>
-        @for(rating of ratings; track rating){
-        <option value="rating"  [value]="rating">{{rating}}</option>
-        }
-      </select>
-      <select class="search-filter" name="sorting-options" id="sorting-options" formControlName="sort">
-        <option value="" disabled hidden>Select Sort</option>
-        @for(option of sortOptions; track option){
-        <option value="option" [value]="option">{{option}}</option>
-        }
-      </select>
+      <app-select formControlName="genre" [options]="genres" placeholder="Select Genre"
+        (changed)="onGenreChange($event)">
+      </app-select>
       <button class="submit-btn btn-primary">Submit</button>
     </div>
   </form>
